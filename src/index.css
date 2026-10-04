@@ -2148,3 +2148,155 @@ body {
   color: #94a3b8;
   margin-top: 1px;
 }
+
+/* ==========================================================================
+   IPHONE & ANDROID MOBILE RESPONSIVE ENGINE (TOUCH & SAFE AREAS)
+   ========================================================================== */
+
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+/* Prevent accidental text highlight / tap delay on touch */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation;
+}
+
+/* Fix iOS Safari auto-zoom on input focus */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Native-feeling tactile active feedback for touch */
+button:active,
+.btn-primary:active,
+.glass-card:active,
+.dock-tab-btn:active,
+.action-icon-pill:active,
+.fine-ticket-card:active {
+  transform: scale(0.975);
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile Screen Specific Optimizations (iPhone 12/13/14/15/16 Pro Max, SE, Samsung, Pixel, Xiaomi) */
+@media (max-width: 768px) {
+  html, body {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    background: #070b14 !important;
+  }
+
+  body {
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .device-shell {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-width: 100vw !important;
+    min-height: 100dvh !important;
+    max-width: 100vw !important;
+    max-height: 100dvh !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  /* Status Bar: Adapts to real iPhone notch / Dynamic Island / Android camera cutout */
+  .status-bar {
+    padding-top: max(6px, env(safe-area-inset-top)) !important;
+    padding-left: max(16px, env(safe-area-inset-left)) !important;
+    padding-right: max(16px, env(safe-area-inset-right)) !important;
+    height: calc(38px + env(safe-area-inset-top, 0px)) !important;
+    min-height: calc(38px + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  .status-bar-island {
+    display: none !important; /* Hide artificial mock island on real mobile screens */
+  }
+
+  /* Main Viewport: Smooth Momentum Scrolling & Safe Area Padding */
+  .app-viewport-container {
+    width: 100% !important;
+    height: calc(100dvh - 38px - env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 14px)) !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+  }
+
+  /* Floating Bottom Navigation Dock: Clears iOS Home Swipe Bar & Android Navigation Pill */
+  .floating-dock-nav {
+    position: fixed !important;
+    bottom: max(10px, env(safe-area-inset-bottom, 10px)) !important;
+    left: max(12px, env(safe-area-inset-left, 12px)) !important;
+    right: max(12px, env(safe-area-inset-right, 12px)) !important;
+    height: 64px !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    z-index: 99 !important;
+  }
+
+  /* Mobile Bottom Sheet Modals (iOS & Android Native Style) */
+  .modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    z-index: 150 !important;
+  }
+
+  .modal-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 88dvh !important;
+    border-radius: 28px 28px 0 0 !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 22px 20px calc(24px + env(safe-area-inset-bottom, 16px)) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    animation: slideUpBottomSheet 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative !important;
+  }
+
+  .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+  }
+}
+
+@keyframes slideUpBottomSheet {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
