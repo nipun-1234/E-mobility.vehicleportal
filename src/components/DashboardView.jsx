@@ -321,8 +321,9 @@ export default function DashboardView({ user, onLogout }) {
               <ShieldCheck size={22} />
             </div>
             <div className="gov-text-col">
-              <span className="gov-main-title">
-                {activeBottomNav === 'home' && 'e-mobility-vehicle-portal'}
+              <span className="gov-main-title">E-mobility-vehicle-portal</span>
+              <span className="gov-sub-badge">
+                {activeBottomNav === 'home' && 'Citizen Driver Dashboard'}
                 {activeBottomNav === 'garage' && 'Digital Garage & Fleet'}
                 {activeBottomNav === 'tickets' && 'Traffic Citations & Fines'}
                 {activeBottomNav === 'profile' && 'National Driver Identity'}
@@ -1467,7 +1468,7 @@ export default function DashboardView({ user, onLogout }) {
         <div className="modal-overlay">
           <div className="modal-content" style={{ textAlign: 'center' }}>
             <div className="modal-header">
-              <h3 className="modal-title">e-mobility-vehicle-portal Digital Pass</h3>
+              <h3 className="modal-title">E-mobility-vehicle-portal Digital Pass</h3>
               <button className="close-btn" onClick={() => setShowQrModal(null)}>
                 ×
               </button>

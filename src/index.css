@@ -197,7 +197,7 @@ html, body {
 }
 
 .gov-main-title {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.3px;
@@ -205,6 +205,18 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.gov-sub-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #93c5fd;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
 }
 
 .header-action-group {

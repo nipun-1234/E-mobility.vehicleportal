@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from 'react';
 const translations = {
   English: {
     // General / Brand
-    brandName: 'e-mobility-vehicle-portal',
-    portalTitle: 'e-mobility-vehicle-portal',
+    brandName: 'E-mobility-vehicle-portal',
+    portalTitle: 'E-mobility-vehicle-portal',
     portalSubtitle: 'Manage vehicles, fines and disputes in one place',
     secNote: 'Secured with 256-bit encryption',
     home: 'Home',
@@ -107,8 +107,8 @@ const translations = {
 
   Sinhala: {
     // General / Brand
-    brandName: 'e-mobility-vehicle-portal',
-    portalTitle: 'e-mobility-vehicle-portal',
+    brandName: 'E-mobility-vehicle-portal',
+    portalTitle: 'E-mobility-vehicle-portal',
     portalSubtitle: 'වාහන, දඩ සහ අභියාචනා එකම ස්ථානයකින් පාලනය කරන්න',
     secNote: 'බිටු 256 කේතනය මගින් ආරක්ෂිතයි',
     home: 'මුඛ්‍ය පිටුව',
@@ -211,8 +211,8 @@ const translations = {
 
   Tamil: {
     // General / Brand
-    brandName: 'e-mobility-vehicle-portal',
-    portalTitle: 'e-mobility-vehicle-portal',
+    brandName: 'E-mobility-vehicle-portal',
+    portalTitle: 'E-mobility-vehicle-portal',
     portalSubtitle: 'வாகனங்கள், அபராதங்கள் மற்றும் மேல்முறையீடுகளை ஒரே இடத்தில் நிர்வகிக்கவும்',
     secNote: '256-பிட் குறியாக்கத்துடன் பாதுகாக்கப்பட்டது',
     home: 'முகப்பு',
