@@ -58,13 +58,18 @@ export default function DashboardView({ user, onLogout }) {
   // Profile Settings Modals & User State
   const [activeProfileModal, setActiveProfileModal] = useState(null);
   const [selectedLang, setSelectedLang] = useState('English');
-  const [userData, setUserData] = useState(() => user || {
-    name: 'Kavinda Perera',
-    nic: '200012345678',
-    mobile: '0771234567',
-    email: 'kavinda.perera@example.lk',
-    licenseNo: 'B-9918231',
-    district: 'Colombo'
+  const [userData, setUserData] = useState(() => {
+    const saved = localStorage.getItem('user');
+    const parsed = saved ? JSON.parse(saved) : null;
+    return parsed || user || {
+      name: 'Dr. Nimal Wickramasinghe (Gov-SSO)',
+      nic: '198810293847',
+      mobile: '0771234567',
+      email: 'nimal.wickramasinghe@example.lk',
+      licenseNo: 'B-9918231',
+      district: 'Colombo',
+      profileImage: '/profile_avatar.jpg'
+    };
   });
 
   // Edit Profile Form State
@@ -72,6 +77,21 @@ export default function DashboardView({ user, onLogout }) {
   const [editMobile, setEditMobile] = useState(userData?.mobile || '');
   const [editEmail, setEditEmail] = useState(userData?.email || '');
   const [editLicense, setEditLicense] = useState(userData?.licenseNo || 'B-9918231');
+
+  // Photo Upload Handler
+  const handlePhotoUpload = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        const dataUrl = uploadEvent.target.result;
+        const updated = { ...userData, profileImage: dataUrl };
+        setUserData(updated);
+        localStorage.setItem('user', JSON.stringify(updated));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Notifications Toggle State
   const [notifSettings, setNotifSettings] = useState({
@@ -93,7 +113,10 @@ export default function DashboardView({ user, onLogout }) {
 
   useEffect(() => {
     if (user) {
-      setUserData(user);
+      setUserData(prev => ({
+        ...user,
+        profileImage: user.profileImage || prev?.profileImage || '/profile_avatar.jpg'
+      }));
       setEditName(user.name || '');
       setEditMobile(user.mobile || '');
       setEditEmail(user.email || '');
@@ -342,8 +365,16 @@ export default function DashboardView({ user, onLogout }) {
               </div>
             </div>
 
-            <div className="citizen-avatar-box">
-              {userData?.name ? userData.name.charAt(0) : (user?.name ? user.name.charAt(0) : 'K')}
+            <div className="citizen-avatar-box" style={{ overflow: 'hidden', padding: 0 }}>
+              {userData?.profileImage ? (
+                <img
+                  src={userData.profileImage}
+                  alt={userData.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                userData?.name ? userData.name.charAt(0) : 'D'
+              )}
             </div>
           </div>
         )}
@@ -1156,12 +1187,20 @@ export default function DashboardView({ user, onLogout }) {
 
               {/* Driver Photo Frame & Primary Credentials */}
               <div className="license-holder-main">
-                <div className="license-avatar-frame">
-                  {userData?.name ? userData.name.charAt(0) : 'K'}
+                <div className="license-avatar-frame" style={{ overflow: 'hidden', padding: 0 }}>
+                  {userData?.profileImage ? (
+                    <img
+                      src={userData.profileImage}
+                      alt={userData.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    userData?.name ? userData.name.charAt(0) : 'D'
+                  )}
                 </div>
                 <div className="license-holder-details">
-                  <div className="license-name-h3">{userData?.name || 'Kavinda Perera'}</div>
-                  <div className="license-nic-tag">NIC: {userData?.nic || '200012345678'}</div>
+                  <div className="license-name-h3">{userData?.name || 'Dr. Nimal Wickramasinghe (Gov-SSO)'}</div>
+                  <div className="license-nic-tag">NIC: {userData?.nic || '198810293847'}</div>
                   <div className="license-no-tag">LIC NO: {userData?.licenseNo || 'B-9918231'}</div>
                 </div>
               </div>
@@ -1456,6 +1495,88 @@ export default function DashboardView({ user, onLogout }) {
                 <X size={18} />
               </button>
             </div>
+            
+            {/* Profile Photo Uploader Section */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '18px',
+              padding: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '14px',
+              marginBottom: '16px'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '2px solid #3b82f6',
+                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
+                  background: '#1e293b'
+                }}>
+                  <img
+                    src={userData?.profileImage || '/profile_avatar.jpg'}
+                    alt="Driver Portrait"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+                <label
+                  htmlFor="avatar-edit-upload"
+                  style={{
+                    position: 'absolute',
+                    bottom: '-2px',
+                    right: '-2px',
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50%',
+                    background: '#2563eb',
+                    border: '2px solid #0b1329',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.5)'
+                  }}
+                  title="Change Photo"
+                >
+                  <Camera size={12} />
+                </label>
+                <input
+                  type="file"
+                  id="avatar-edit-upload"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  hidden
+                />
+              </div>
+
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '13.5px', fontWeight: '800', color: '#ffffff', marginBottom: '2px' }}>
+                  Profile Photo
+                </div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: '1.35' }}>
+                  A clear photo makes your National Driving Identity Card and police roadside verification 100% official.
+                </div>
+                <label
+                  htmlFor="avatar-edit-upload"
+                  style={{
+                    display: 'inline-block',
+                    marginTop: '6px',
+                    fontSize: '11.5px',
+                    fontWeight: '700',
+                    color: '#60a5fa',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Upload New Photo →
+                </label>
+              </div>
+            </div>
+
             <form onSubmit={(e) => {
               e.preventDefault();
               const updated = { ...userData, name: editName, mobile: editMobile, email: editEmail, licenseNo: editLicense };
@@ -1494,11 +1615,92 @@ export default function DashboardView({ user, onLogout }) {
             <div className="modal-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <User size={20} color="#60a5fa" />
-                <h3 className="modal-title">Personal Information</h3>
+                <h3 className="modal-title">Profile Info</h3>
               </div>
               <button className="close-btn" onClick={() => setActiveProfileModal(null)}>
                 <X size={18} />
               </button>
+            </div>
+
+            {/* Profile Photo Card */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '18px',
+              padding: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '14px',
+              marginBottom: '16px'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '2px solid #3b82f6',
+                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
+                  background: '#1e293b'
+                }}>
+                  <img
+                    src={userData?.profileImage || '/profile_avatar.jpg'}
+                    alt="Driver Portrait"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+                <label
+                  htmlFor="avatar-info-upload"
+                  style={{
+                    position: 'absolute',
+                    bottom: '-2px',
+                    right: '-2px',
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50%',
+                    background: '#2563eb',
+                    border: '2px solid #0b1329',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.5)'
+                  }}
+                  title="Change Photo"
+                >
+                  <Camera size={12} />
+                </label>
+                <input
+                  type="file"
+                  id="avatar-info-upload"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  hidden
+                />
+              </div>
+
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '13.5px', fontWeight: '800', color: '#ffffff', marginBottom: '2px' }}>
+                  Add profile photo
+                </div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: '1.35' }}>
+                  A clear photo makes your National Driving Identity Card and police roadside verification official & verified.
+                </div>
+                <label
+                  htmlFor="avatar-info-upload"
+                  style={{
+                    display: 'inline-block',
+                    marginTop: '6px',
+                    fontSize: '11.5px',
+                    fontWeight: '700',
+                    color: '#60a5fa',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Change Profile Photo →
+                </label>
+              </div>
             </div>
 
             <div className="glass-card" style={{ padding: '16px', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
