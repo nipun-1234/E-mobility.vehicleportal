@@ -67,7 +67,7 @@ export default function PaymentModal({ fine, onClose, onPaymentComplete }) {
   };
 
   return (
-    <div className="app-page-screen" style={{ zIndex: 100, background: '#020617' }}>
+    <div className="app-page-screen" style={{ position: 'fixed', inset: 0, zIndex: 1000, background: '#080d1a', overflowY: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '90px' }}>
       {/* Top Header Bar */}
       <div style={{
         padding: '14px 20px',
