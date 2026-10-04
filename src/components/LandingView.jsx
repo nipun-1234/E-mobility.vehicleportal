@@ -70,8 +70,8 @@ export default function LandingView({ onNext }) {
           }}>
             <ShieldCheck size={18} color="#93c5fd" />
           </div>
-          <span style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: '800', fontSize: '15px', letterSpacing: '-0.5px' }}>
-            E-Mobility
+          <span style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: '800', fontSize: '15px', letterSpacing: '-0.3px' }}>
+            e-mobility-vehicle-portal
           </span>
         </div>
 

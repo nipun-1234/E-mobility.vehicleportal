@@ -323,7 +323,7 @@ export default function DashboardView({ user, onLogout }) {
             <div className="gov-text-col">
               <span className="gov-super-title">Democratic Socialist Republic of Sri Lanka</span>
               <span className="gov-main-title">
-                {activeBottomNav === 'home' && 'E-Mobility Portal'}
+                {activeBottomNav === 'home' && 'e-mobility-vehicle-portal'}
                 {activeBottomNav === 'garage' && 'Digital Garage & Fleet'}
                 {activeBottomNav === 'tickets' && 'Traffic Citations & Fines'}
                 {activeBottomNav === 'profile' && 'National Driver Identity'}
@@ -1468,7 +1468,7 @@ export default function DashboardView({ user, onLogout }) {
         <div className="modal-overlay">
           <div className="modal-content" style={{ textAlign: 'center' }}>
             <div className="modal-header">
-              <h3 className="modal-title">E-Mobility Digital Pass</h3>
+              <h3 className="modal-title">e-mobility-vehicle-portal Digital Pass</h3>
               <button className="close-btn" onClick={() => setShowQrModal(null)}>
                 ×
               </button>

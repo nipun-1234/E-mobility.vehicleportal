@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from 'react';
 const translations = {
   English: {
     // General / Brand
-    brandName: 'E-Mobility Sri Lanka',
-    portalTitle: 'Vehicle Portal',
+    brandName: 'e-mobility-vehicle-portal',
+    portalTitle: 'e-mobility-vehicle-portal',
     portalSubtitle: 'Manage vehicles, fines and disputes in one place',
     secNote: 'Secured with 256-bit encryption',
     home: 'Home',
@@ -14,7 +14,7 @@ const translations = {
     features: 'Features',
 
     // Landing View
-    heroSubheading: 'E-MOBILITY SRI LANKA',
+    heroSubheading: 'E-MOBILITY-VEHICLE-PORTAL',
     heroFocalTitle: 'Experience the future of digital vehicle management with our next-generation liquid interface.',
     getStarted: 'Get Started',
     premiumFeatures: 'Premium Features',
@@ -107,8 +107,8 @@ const translations = {
 
   Sinhala: {
     // General / Brand
-    brandName: 'ඊ-මොබිලිටි ශ්‍රී ලංකා',
-    portalTitle: 'වාහන ද්වාරය',
+    brandName: 'e-mobility-vehicle-portal',
+    portalTitle: 'e-mobility-vehicle-portal',
     portalSubtitle: 'වාහන, දඩ සහ අභියාචනා එකම ස්ථානයකින් පාලනය කරන්න',
     secNote: 'බිටු 256 කේතනය මගින් ආරක්ෂිතයි',
     home: 'මුඛ්‍ය පිටුව',
@@ -118,7 +118,7 @@ const translations = {
     features: 'විශේෂාංග',
 
     // Landing View
-    heroSubheading: 'ඊ-මොබිලිටි ශ්‍රී ලංකා',
+    heroSubheading: 'E-MOBILITY-VEHICLE-PORTAL',
     heroFocalTitle: 'අපගේ මීළඟ පරම්පරාවේ ඩිජිටල් වාහන කළමනාකරණ පද්ධතිය අත්විඳින්න.',
     getStarted: 'ආරම්භ කරන්න',
     premiumFeatures: 'විශිෂ්ට විශේෂාංග',
@@ -211,8 +211,8 @@ const translations = {
 
   Tamil: {
     // General / Brand
-    brandName: 'ஈ-மொபிலிட்டி இலங்கை',
-    portalTitle: 'வாகன போர்டல்',
+    brandName: 'e-mobility-vehicle-portal',
+    portalTitle: 'e-mobility-vehicle-portal',
     portalSubtitle: 'வாகனங்கள், அபராதங்கள் மற்றும் மேல்முறையீடுகளை ஒரே இடத்தில் நிர்வகிக்கவும்',
     secNote: '256-பிட் குறியாக்கத்துடன் பாதுகாக்கப்பட்டது',
     home: 'முகப்பு',
@@ -222,7 +222,7 @@ const translations = {
     features: 'அம்சங்கள்',
 
     // Landing View
-    heroSubheading: 'ஈ-மொபிலிட்டி இலங்கை',
+    heroSubheading: 'E-MOBILITY-VEHICLE-PORTAL',
     heroFocalTitle: 'எங்களின் அடுத்த தலைமுறை டிஜிட்டல் வாகன மேலாண்மை அமைப்பை அனுபவியுங்கள்.',
     getStarted: 'தொடங்கவும்',
     premiumFeatures: 'சிறப்பு அம்சங்கள்',
