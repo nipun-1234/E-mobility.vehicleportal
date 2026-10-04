@@ -122,22 +122,7 @@ html, body {
   overflow: visible;
 }
 
-/* On Real Mobile Screens (Phones & Tablets) -> Fullscreen Edge-to-Edge */
-@media (max-width: 768px) {
-  html, body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #060913;
-  color: var(--text-main);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
+
 
 
 /* ==========================================================================
@@ -1190,22 +1175,6 @@ button:active,
 }
 
 /* Mobile Screen Specific Optimizations (iPhone 12/13/14/15/16 Pro Max, SE, Samsung, Pixel, Xiaomi) */
-@media (max-width: 768px) {
-  html, body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #060913;
-  color: var(--text-main);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
 @keyframes slideUpBottomSheet {
   from {
     transform: translateY(100%);
@@ -1784,31 +1753,188 @@ button:active,
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-
 /* ==========================================================================
-   MOBILE RESPONSIVE PERFECTION (iOS, ANDROID & SMALL VIEWPORTS)
+   BASE MODAL DIALOGS & OVERLAYS (LIQUID GLASS)
    ========================================================================== */
 
-@media (max-width: 640px) {
-  html, body {
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 15, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 1000;
+  animation: fadeInModal 0.2s ease;
+}
+
+.modal-content {
   width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #060913;
-  color: var(--text-main);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  max-width: 440px;
+  max-height: 90vh;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  padding: 24px 22px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   overflow-y: auto;
+  animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.modal-title {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 17px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideUpBottomSheet {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   PERFECT RESPONSIVE & MOBILE TOUCH SCROLLING (iOS, Android, Tablets, PC)
+   ========================================================================== */
+
+/* Universal Layout Container Rules */
+.mobile-web-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #060a14;
+  background-image: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+                    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                    radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 24px 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
+.mobile-web-shell {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: auto;
+  background: #080d1a;
+  background-image: radial-gradient(circle at 50% -10%, rgba(37, 99, 235, 0.24) 0%, transparent 60%),
+                    radial-gradient(circle at 100% 80%, rgba(139, 92, 246, 0.14) 0%, transparent 50%),
+                    linear-gradient(180deg, #090e1c 0%, #060912 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  margin: 0 auto;
+}
 
-/* ==========================================================================
-   FINAL UNIFIED MOBILE VIEWPORT & TOUCH SCROLLING RULES
-   ========================================================================== */
+.app-viewport-container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.app-page-screen {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  padding: 16px 14px calc(110px + env(safe-area-inset-bottom, 32px));
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.app-page-content {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.floating-dock-nav {
+  position: fixed;
+  bottom: max(12px, env(safe-area-inset-bottom, 12px));
+  left: 12px;
+  right: 12px;
+  max-width: 416px;
+  margin: 0 auto;
+  height: 64px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 6px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  z-index: 999;
+}
+
 @media (max-width: 640px) {
   html, body {
     width: 100% !important;
@@ -1850,43 +1976,12 @@ button:active,
   }
 
   .app-page-screen {
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 1;
-  padding: 16px 14px calc(110px + env(safe-area-inset-bottom, 32px));
-  box-sizing: border-box;
-  overflow: visible;
-}
-
-
-/* ==========================================================================
-   DASHBOARD MOBILE TOUCH SCROLLING & FIXED NAVIGATION DOCK
-   ========================================================================== */
-.portal-header-pro {
-  width: 100%;
-  position: relative;
-  z-index: 10;
-  margin-bottom: 16px;
-}
-
-.vehicle-card-pro,
-.glass-card,
-.activity-card-group,
-.quick-action-card,
-.station-card-pro {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-@media (max-width: 640px) {
-  .app-page-screen {
-    padding: max(14px, env(safe-area-inset-top)) 14px calc(120px + env(safe-area-inset-bottom, 36px)) !important;
-    overflow-y: visible !important;
+    width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
+    padding: max(14px, env(safe-area-inset-top)) 14px calc(120px + env(safe-area-inset-bottom, 36px)) !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
   }
 
   .floating-dock-nav {
@@ -1902,8 +1997,30 @@ button:active,
     -webkit-backdrop-filter: blur(30px) !important;
   }
 
-  .dock-tab-btn {
-    padding: 6px 10px !important;
-    font-size: 10px !important;
+  .modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.78) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    z-index: 9999 !important;
+  }
+
+  .modal-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90dvh !important;
+    border-radius: 28px 28px 0 0 !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 16px)) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    animation: slideUpBottomSheet 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 }
