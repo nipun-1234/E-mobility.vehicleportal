@@ -332,11 +332,11 @@ export default function DashboardView({ user, onLogout }) {
         {/* Dynamic Context Header Sub-row depending on Tab */}
         {activeBottomNav === 'home' && (
           <div className="citizen-welcome-row">
-            <div>
+            <div style={{ flex: 1, minWidth: 0 }}>
               <div className="citizen-greeting-label">{t('welcome')}</div>
-              <div className="citizen-name-title">
+              <div className="citizen-name-title" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
                 <span>{userData?.name || user?.name || 'Kavinda Perera'}</span>
-                <span className="citizen-verified-pill">
+                <span className="citizen-verified-pill" style={{ flexShrink: 0 }}>
                   <Check size={11} strokeWidth={3} /> Verified ID
                 </span>
               </div>
@@ -349,42 +349,42 @@ export default function DashboardView({ user, onLogout }) {
         )}
 
         {activeBottomNav === 'garage' && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600' }}>REGISTERED FLEET</div>
-              <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', fontFamily: 'Plus Jakarta Sans' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '10.5px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.4px' }}>REGISTERED FLEET</div>
+              <div style={{ fontSize: '17px', fontWeight: '800', color: '#ffffff', fontFamily: 'Plus Jakarta Sans' }}>
                 {(vehicles && vehicles.length > 0) ? vehicles.length : 2} Vehicles Connected
               </div>
             </div>
-            <span className="status-pill-success">
+            <span className="status-pill-success" style={{ flexShrink: 0 }}>
               <span className="live-dot-pulse" /> Live DMT Sync
             </span>
           </div>
         )}
 
         {activeBottomNav === 'tickets' && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600' }}>POLICE CITATIONS</div>
-              <div style={{ fontSize: '18px', fontWeight: '800', color: '#fda4af', fontFamily: 'Plus Jakarta Sans' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '10.5px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.4px' }}>POLICE CITATIONS</div>
+              <div style={{ fontSize: '16px', fontWeight: '800', color: '#fda4af', fontFamily: 'Plus Jakarta Sans', whiteSpace: 'nowrap' }}>
                 1 Active Violation (Rs. 3,850)
               </div>
             </div>
-            <span className="status-pill-warning">
+            <span className="status-pill-warning" style={{ flexShrink: 0 }}>
               <span className="live-dot-pulse" /> Action Required
             </span>
           </div>
         )}
 
         {activeBottomNav === 'profile' && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600' }}>SMART CREDENTIALS</div>
-              <div style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', fontFamily: 'Plus Jakarta Sans' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: '10.5px', color: '#94a3b8', fontWeight: '600', letterSpacing: '0.4px' }}>SMART CREDENTIALS</div>
+              <div style={{ fontSize: '17px', fontWeight: '800', color: '#ffffff', fontFamily: 'Plus Jakarta Sans', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {userData?.name || 'Kavinda Perera'}
               </div>
             </div>
-            <span className="citizen-verified-pill">
+            <span className="citizen-verified-pill" style={{ flexShrink: 0 }}>
               <Check size={11} strokeWidth={3} /> Gov-SSO Linked
             </span>
           </div>
@@ -686,7 +686,7 @@ export default function DashboardView({ user, onLogout }) {
 
         {/* TAB 2: GARAGE VIEW */}
         {activeBottomNav === 'garage' && (
-          <div style={{ animation: 'fadeInRight 0.3s ease-out' }}>
+          <div style={{ width: '100%', boxSizing: 'border-box' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div>
                 <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontSize: '19px', fontWeight: '800', color: '#ffffff' }}>
@@ -823,11 +823,11 @@ export default function DashboardView({ user, onLogout }) {
           });
 
           return (
-            <div style={{ paddingBottom: '20px', animation: 'fadeInRight 0.3s ease-out' }}>
+            <div style={{ paddingBottom: '20px', width: '100%', boxSizing: 'border-box' }}>
               {/* View Title */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', width: '100%' }}>
                 <div>
-                  <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontSize: '20px', fontWeight: '800', color: '#ffffff' }}>
+                  <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontSize: '19px', fontWeight: '800', color: '#ffffff' }}>
                     {t('trafficTicketsTitle')}
                   </h2>
                   <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
@@ -837,8 +837,8 @@ export default function DashboardView({ user, onLogout }) {
               </div>
 
               {/* Search / Reference Quick View Bar */}
-              <div style={{ position: 'relative', marginBottom: '14px' }}>
-                <Search size={16} color="#94a3b8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+              <div style={{ position: 'relative', marginBottom: '14px', width: '100%' }}>
+                <Search size={16} color="#94a3b8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
                 <input
                   type="text"
                   placeholder="Search vehicle (e.g. WP CAB-4521), ticket ID..."
@@ -847,11 +847,14 @@ export default function DashboardView({ user, onLogout }) {
                   className="form-input"
                   style={{
                     paddingLeft: '40px',
+                    paddingRight: ticketSearch ? '36px' : '14px',
                     height: '42px',
                     fontSize: '13px',
                     borderRadius: '16px',
                     background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)'
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    width: '100%',
+                    boxSizing: 'border-box'
                   }}
                 />
                 {ticketSearch && (
@@ -865,7 +868,7 @@ export default function DashboardView({ user, onLogout }) {
               </div>
 
               {/* Filter Tabs: All, Unpaid, Paid, Disputed */}
-              <div style={{ display: 'flex', gap: '6px', marginBottom: '16px', overflowX: 'auto', paddingBottom: '4px' }} className="no-scrollbar">
+              <div style={{ display: 'flex', gap: '6px', marginBottom: '16px', overflowX: 'auto', paddingBottom: '4px', width: '100%', WebkitOverflowScrolling: 'touch' }} className="no-scrollbar">
                 {[
                   { id: 'All', label: 'All Records', count: fines.length },
                   { id: 'Unpaid', label: 'Unpaid Fines', count: fines.filter(f => f.status === 'Unpaid' || f.status === 'Pending').length },
@@ -878,18 +881,19 @@ export default function DashboardView({ user, onLogout }) {
                       key={tab.id}
                       onClick={() => setTicketFilter(tab.id)}
                       style={{
-                        padding: '8px 14px',
+                        padding: '8px 12px',
                         borderRadius: '20px',
                         border: isActive ? '1px solid rgba(147, 197, 253, 0.6)' : '1px solid rgba(255, 255, 255, 0.1)',
                         background: isActive ? 'linear-gradient(135deg, rgba(37, 99, 235, 0.35) 0%, rgba(29, 78, 216, 0.15) 100%)' : 'rgba(255, 255, 255, 0.05)',
                         color: isActive ? '#ffffff' : '#94a3b8',
-                        fontSize: '12px',
+                        fontSize: '11.5px',
                         fontWeight: '700',
                         cursor: 'pointer',
                         whiteSpace: 'nowrap',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
+                        flexShrink: 0,
                         transition: 'all 0.2s ease',
                         boxShadow: isActive ? '0 4px 14px rgba(37, 99, 235, 0.3)' : 'none'
                       }}
@@ -899,8 +903,8 @@ export default function DashboardView({ user, onLogout }) {
                         background: isActive ? '#3b82f6' : 'rgba(255, 255, 255, 0.12)',
                         color: '#ffffff',
                         borderRadius: '10px',
-                        padding: '1px 7px',
-                        fontSize: '10.5px',
+                        padding: '1px 6px',
+                        fontSize: '10px',
                         fontWeight: '800'
                       }}>
                         {tab.count}
@@ -912,7 +916,7 @@ export default function DashboardView({ user, onLogout }) {
 
               {/* Ticket List or Empty State */}
               {filteredFines.length === 0 ? (
-                <div className="glass-card" style={{ padding: '36px 20px', textAlign: 'center', margin: '20px 0' }}>
+                <div className="glass-card" style={{ padding: '36px 20px', textAlign: 'center', margin: '20px 0', width: '100%', boxSizing: 'border-box' }}>
                   <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(59, 130, 246, 0.12)', border: '1px solid rgba(59, 130, 246, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', color: '#60a5fa' }}>
                     <CheckCircle2 size={28} />
                   </div>
@@ -928,7 +932,7 @@ export default function DashboardView({ user, onLogout }) {
                   </p>
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', width: '100%' }}>
                   {filteredFines.map((fine) => {
                     const isExpanded = expandedTicketId === fine.id;
                     const isPaid = fine.status === 'Paid';
@@ -940,29 +944,31 @@ export default function DashboardView({ user, onLogout }) {
                         className="vehicle-card-pro"
                         style={{
                           borderLeft: isPaid ? '4px solid #10b981' : isDisputed ? '4px solid #f59e0b' : '4px solid #ef4444',
-                          transition: 'all 0.3s ease'
+                          transition: 'all 0.3s ease',
+                          width: '100%',
+                          boxSizing: 'border-box'
                         }}
                       >
                         {/* Header Info */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                          <div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', width: '100%' }}>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
                               <span style={{ fontSize: '11px', fontWeight: '800', color: '#94a3b8', fontFamily: 'monospace' }}>
                                 TICKET #{fine.id}
                               </span>
                               <SriLankaPlate plate={fine.vehiclePlate} compact={true} />
                             </div>
 
-                            <div style={{ fontSize: '15px', fontWeight: '800', color: '#ffffff', marginBottom: '2px' }}>
+                            <div style={{ fontSize: '14.5px', fontWeight: '800', color: '#ffffff', marginBottom: '2px', wordBreak: 'break-word', lineHeight: '1.3' }}>
                               {fine.offence}
                             </div>
-                            <div style={{ fontSize: '11.5px', color: '#94a3b8' }}>
+                            <div style={{ fontSize: '11.5px', color: '#94a3b8', wordBreak: 'break-word' }}>
                               {fine.policeStation}
                             </div>
                           </div>
 
-                          <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: '17px', fontWeight: '800', color: isPaid ? '#10b981' : isDisputed ? '#f59e0b' : '#ef4444', fontFamily: 'Plus Jakarta Sans' }}>
+                          <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                            <div style={{ fontSize: '16px', fontWeight: '800', color: isPaid ? '#10b981' : isDisputed ? '#f59e0b' : '#ef4444', fontFamily: 'Plus Jakarta Sans', whiteSpace: 'nowrap' }}>
                               Rs. {fine.amount?.toLocaleString()}
                             </div>
                             
@@ -973,6 +979,7 @@ export default function DashboardView({ user, onLogout }) {
                               borderRadius: '10px',
                               display: 'inline-block',
                               marginTop: '4px',
+                              whiteSpace: 'nowrap',
                               background: isPaid ? 'rgba(16, 185, 129, 0.15)' : isDisputed ? 'rgba(245, 158, 11, 0.15)' : 'rgba(239, 68, 68, 0.15)',
                               color: isPaid ? '#34d399' : isDisputed ? '#fbbf24' : '#fca5a5',
                               border: `1px solid ${isPaid ? 'rgba(16, 185, 129, 0.3)' : isDisputed ? 'rgba(245, 158, 11, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
@@ -986,19 +993,21 @@ export default function DashboardView({ user, onLogout }) {
                         <div style={{
                           background: 'rgba(255, 255, 255, 0.04)',
                           borderRadius: '12px',
-                          padding: '8px 12px',
+                          padding: '8px 10px',
                           margin: '12px 0 10px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
+                          gap: '6px',
+                          flexWrap: 'wrap',
                           border: '1px solid rgba(255, 255, 255, 0.06)'
                         }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: isPaid ? '#94a3b8' : '#fca5a5', fontWeight: '700' }}>
-                            <Calendar size={13} color={isPaid ? '#94a3b8' : '#f43f5e'} />
-                            <span>{isPaid ? `Settled on: ${fine.paidAt || '15 Feb 2026'}` : `Due by: ${fine.dueDate || '25 Mar 2026'}`}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: isPaid ? '#94a3b8' : '#fca5a5', fontWeight: '700', minWidth: 0 }}>
+                            <Calendar size={13} color={isPaid ? '#94a3b8' : '#f43f5e'} style={{ flexShrink: 0 }} />
+                            <span style={{ whiteSpace: 'nowrap' }}>{isPaid ? `Settled: ${fine.paidAt || '15 Feb 2026'}` : `Due by: ${fine.dueDate || '25 Mar 2026'}`}</span>
                           </div>
 
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11.5px', color: fine.demeritPoints > 0 ? '#f59e0b' : '#34d399', fontWeight: '800' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', color: fine.demeritPoints > 0 ? '#f59e0b' : '#34d399', fontWeight: '800', flexShrink: 0 }}>
                             <AlertOctagon size={13} color={fine.demeritPoints > 0 ? '#f59e0b' : '#34d399'} />
                             <span>Demerit: {fine.demeritPoints || 0} pts</span>
                           </div>
@@ -1009,14 +1018,14 @@ export default function DashboardView({ user, onLogout }) {
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '10px' }}>
                             <button
                               className="btn-primary"
-                              style={{ height: '38px', fontSize: '12px' }}
+                              style={{ height: '38px', fontSize: '12px', padding: '0 8px', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                               onClick={() => setSelectedFineForPay(fine)}
                             >
                               Pay Fine
                             </button>
                             <button
                               className="btn-alt"
-                              style={{ height: '38px', fontSize: '12px', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)' }}
+                              style={{ height: '38px', fontSize: '12px', padding: '0 8px', whiteSpace: 'nowrap', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                               onClick={() => setSelectedFineForDispute(fine)}
                             >
                               Dispute Ticket
@@ -1064,47 +1073,48 @@ export default function DashboardView({ user, onLogout }) {
                         {isExpanded && (
                           <div style={{
                             marginTop: '10px',
-                            padding: '14px',
+                            padding: '12px',
                             background: 'rgba(2, 6, 23, 0.7)',
                             borderRadius: '16px',
                             border: '1px solid rgba(147, 197, 253, 0.2)',
-                            animation: 'fadeInUp 0.3s ease-out'
+                            width: '100%',
+                            boxSizing: 'border-box'
                           }}>
                             {/* Speed Camera Photographic Evidence Overlay */}
-                            <div className="cctv-frame-pro" style={{ height: '150px', marginBottom: '10px', position: 'relative', overflow: 'hidden', borderRadius: '14px', background: '#020617', border: '1px solid rgba(59, 130, 246, 0.25)' }}>
+                            <div className="cctv-frame-pro" style={{ height: '140px', marginBottom: '10px', position: 'relative', overflow: 'hidden', borderRadius: '14px', background: '#020617', border: '1px solid rgba(59, 130, 246, 0.25)' }}>
                               <img
                                 src={activeEvidenceFine.evidenceImage || "/speed_violation_evidence.png"}
                                 onError={(e) => {
                                   e.target.onerror = null;
                                   e.target.src = "/camera_01_live.jpg";
                                 }}
-                                alt="Cam-01 (Southern Expressway, Km 68.4) Live Evidence"
+                                alt="Live Evidence"
                                 className="cctv-bg-img"
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                               />
                               <div className="cctv-vignette-overlay" />
                               <div className="cctv-scanline-laser" />
 
-                              <div className="cctv-rec-pill" style={{ fontSize: '9px' }}>
+                              <div className="cctv-rec-pill" style={{ fontSize: '9px', padding: '2px 7px' }}>
                                 <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#ef4444', display: 'inline-block' }} />
                                 <span>EVIDENCE SNAPSHOT</span>
                               </div>
 
-                              <div className="cctv-cam-id-pill" style={{ fontSize: '9px' }}>
-                                CAM-01 • SOUTHERN EXPY KM 68.4
+                              <div className="cctv-cam-id-pill" style={{ fontSize: '8.5px', padding: '2px 7px' }}>
+                                CAM-01 • SOUTHERN EXPY
                               </div>
                             </div>
 
                             {/* Location Map Coordinates & Officer Info */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11.5px', color: '#cbd5e1' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <MapPin size={14} color="#60a5fa" />
-                                <span><strong>GPS Location:</strong> {fine.locationCoords || '6.0329° N, 80.2168° E (Southern Expy)'}</span>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', wordBreak: 'break-word' }}>
+                                <MapPin size={14} color="#60a5fa" style={{ flexShrink: 0 }} />
+                                <span><strong>GPS:</strong> {fine.locationCoords || '6.0329° N, 80.2168° E (Southern Expy)'}</span>
                               </div>
                               {fine.officerBadge && (
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                  <Shield size={14} color="#a78bfa" />
-                                  <span><strong>Issuing Officer:</strong> {fine.officerBadge}</span>
+                                  <Shield size={14} color="#a78bfa" style={{ flexShrink: 0 }} />
+                                  <span><strong>Officer:</strong> {fine.officerBadge}</span>
                                 </div>
                               )}
                             </div>
@@ -1121,7 +1131,7 @@ export default function DashboardView({ user, onLogout }) {
 
         {/* TAB 4: PROFILE & NATIONAL DRIVER IDENTITY */}
         {activeBottomNav === 'profile' && (
-          <div style={{ animation: 'fadeInRight 0.3s ease-out' }}>
+          <div style={{ width: '100%', boxSizing: 'border-box' }}>
             {/* 1. Hero Sri Lanka Smart Driving License Card */}
             <div className="smart-license-card">
               {/* Header Strip */}

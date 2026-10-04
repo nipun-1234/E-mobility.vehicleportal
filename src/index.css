@@ -135,25 +135,32 @@ html, body {
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 18px 18px;
-  border-radius: 0 0 28px 28px;
+  padding: 14px 16px 16px;
+  border-radius: 20px;
   box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), inset 0 -1px 0 rgba(255, 255, 255, 0.06);
   flex-shrink: 0;
   position: relative;
   z-index: 40;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 14px;
 }
 
 .gov-branding-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+  gap: 8px;
+  width: 100%;
 }
 
 .gov-emblem-badge {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
+  flex: 1;
 }
 
 .gov-crest-icon {
@@ -173,29 +180,38 @@ html, body {
 .gov-text-col {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
 }
 
 .gov-super-title {
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 800;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.5px;
   color: #93c5fd;
   text-transform: uppercase;
   font-family: var(--font-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gov-main-title {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.2px;
   font-family: var(--font-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-action-group {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .lang-pill-btn {
@@ -1953,7 +1969,7 @@ button:active,
     margin: 0 !important;
     display: block !important;
     background: #080d1a !important;
-    overflow: visible !important;
+    overflow-x: hidden !important;
   }
 
   .mobile-web-shell {
@@ -1965,23 +1981,49 @@ button:active,
     border-radius: 0 !important;
     box-shadow: none !important;
     background: transparent !important;
-    overflow: visible !important;
+    overflow-x: hidden !important;
   }
 
   .app-viewport-container {
     width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
-    overflow: visible !important;
+    overflow-x: hidden !important;
   }
 
   .app-page-screen {
     width: 100% !important;
+    max-width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
-    padding: max(14px, env(safe-area-inset-top)) 14px calc(120px + env(safe-area-inset-bottom, 36px)) !important;
+    padding: max(12px, env(safe-area-inset-top)) 12px calc(110px + env(safe-area-inset-bottom, 24px)) !important;
     box-sizing: border-box !important;
-    overflow: visible !important;
+    overflow-x: hidden !important;
+  }
+
+  .app-page-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .portal-header-pro {
+    padding: 12px 14px 14px !important;
+    border-radius: 18px !important;
+    margin-bottom: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .vehicle-card-pro {
+    padding: 12px 12px !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .floating-dock-nav {
@@ -1992,9 +2034,15 @@ button:active,
     max-width: calc(100vw - 20px) !important;
     margin: 0 auto !important;
     z-index: 9999 !important;
-    height: 62px !important;
+    height: 60px !important;
     backdrop-filter: blur(30px) !important;
     -webkit-backdrop-filter: blur(30px) !important;
+    padding: 0 4px !important;
+  }
+
+  .dock-tab-btn {
+    padding: 6px 10px !important;
+    font-size: 10.5px !important;
   }
 
   .modal-overlay {
