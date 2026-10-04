@@ -44,8 +44,7 @@
 
 html, body {
   width: 100%;
-  height: 100%;
-  min-height: 100dvh;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   background: #060913;
@@ -53,41 +52,47 @@ html, body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Outer Desktop Wrapper: Centers the mobile website cleanly with ambient backdrop */
 .mobile-web-wrapper {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background: #060a14;
   background-image: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
                     radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
                     radial-gradient(#1e293b 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 24px 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+  margin: 0;
 }
 
 /* Master Mobile Website Shell */
 .mobile-web-shell {
   width: 100%;
-  max-width: 480px;
-  height: 100dvh;
-  max-height: 940px;
+  max-width: 440px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: auto;
   background: #080d1a;
   background-image: radial-gradient(circle at 50% -10%, rgba(37, 99, 235, 0.24) 0%, transparent 60%),
                     radial-gradient(circle at 100% 80%, rgba(139, 92, 246, 0.14) 0%, transparent 50%),
                     linear-gradient(180deg, #090e1c 0%, #060912 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 32px;
-  box-shadow: 0 25px 65px -15px rgba(0, 0, 0, 0.8),
-              0 0 0 1px rgba(255, 255, 255, 0.05);
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: visible;
+  margin: 0 auto;
 }
 
 .mobile-web-shell.has-bg-image {
@@ -108,45 +113,30 @@ html, body {
 /* App Viewport Container */
 .app-viewport-container {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
   position: relative;
   z-index: 1;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* On Real Mobile Screens (Phones & Tablets) -> Fullscreen Edge-to-Edge */
 @media (max-width: 768px) {
   html, body {
-    width: 100vw !important;
-    height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    overflow: hidden !important;
-    background: #080d1a !important;
-  }
-
-  .mobile-web-wrapper {
-    width: 100vw !important;
-    height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .mobile-web-shell {
-    width: 100vw !important;
-    height: 100dvh !important;
-    min-width: 100vw !important;
-    min-height: 100dvh !important;
-    max-width: 100vw !important;
-    max-height: 100dvh !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #060913;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 
@@ -1200,108 +1190,18 @@ button:active,
 /* Mobile Screen Specific Optimizations (iPhone 12/13/14/15/16 Pro Max, SE, Samsung, Pixel, Xiaomi) */
 @media (max-width: 768px) {
   html, body {
-    width: 100vw !important;
-    height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    background: #080d1a !important;
-  }
-
-  body {
-    padding: 0 !important;
-    display: block !important;
-  }
-
-  .device-shell {
-    width: 100vw !important;
-    height: 100dvh !important;
-    min-width: 100vw !important;
-    min-height: 100dvh !important;
-    max-width: 100vw !important;
-    max-height: 100dvh !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    overflow: hidden !important;
-  }
-
-  /* Status Bar: Adapts to real iPhone notch / Dynamic Island / Android camera cutout */
-  .status-bar {
-    padding-top: max(6px, env(safe-area-inset-top)) !important;
-    padding-left: max(16px, env(safe-area-inset-left)) !important;
-    padding-right: max(16px, env(safe-area-inset-right)) !important;
-    height: calc(38px + env(safe-area-inset-top, 0px)) !important;
-    min-height: calc(38px + env(safe-area-inset-top, 0px)) !important;
-  }
-
-  .status-bar-island {
-    display: none !important; /* Hide artificial mock island on real mobile screens */
-  }
-
-  /* Main Viewport: Smooth Momentum Scrolling & Safe Area Padding */
-  .app-viewport-container {
-    width: 100% !important;
-    height: calc(100dvh - 38px - env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: calc(88px + env(safe-area-inset-bottom, 14px)) !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior-y: contain !important;
-  }
-
-  /* Floating Bottom Navigation Dock: Clears iOS Home Swipe Bar & Android Navigation Pill */
-  .floating-dock-nav {
-    position: fixed !important;
-    bottom: max(10px, env(safe-area-inset-bottom, 10px)) !important;
-    left: max(12px, env(safe-area-inset-left, 12px)) !important;
-    right: max(12px, env(safe-area-inset-right, 12px)) !important;
-    height: 64px !important;
-    backdrop-filter: blur(30px) !important;
-    -webkit-backdrop-filter: blur(30px) !important;
-    z-index: 99 !important;
-  }
-
-  /* Mobile Bottom Sheet Modals (iOS & Android Native Style) */
-  .modal-overlay {
-    position: fixed !important;
-    inset: 0 !important;
-    background: rgba(0, 0, 0, 0.75) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    display: flex !important;
-    align-items: flex-end !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    z-index: 150 !important;
-  }
-
-  .modal-content {
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 88dvh !important;
-    border-radius: 28px 28px 0 0 !important;
-    border-bottom: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding: 22px 20px calc(24px + env(safe-area-inset-bottom, 16px)) !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    animation: slideUpBottomSheet 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    position: relative !important;
-  }
-
-  .modal-content::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 38px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 4px;
-  }
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #060913;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes slideUpBottomSheet {
@@ -1432,14 +1332,14 @@ button:active,
 
 .app-page-screen {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
   position: relative;
   z-index: 1;
-  padding: 24px 18px 40px;
+  padding: 20px 16px calc(60px + env(safe-area-inset-bottom, 20px));
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .app-page-content {
@@ -1889,79 +1789,95 @@ button:active,
 
 @media (max-width: 640px) {
   html, body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #060913;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* ==========================================================================
+   FINAL UNIFIED MOBILE VIEWPORT & TOUCH SCROLLING RULES
+   ========================================================================== */
+@media (max-width: 640px) {
+  html, body {
     width: 100% !important;
     min-height: 100% !important;
     height: auto !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    position: static !important;
-    background: #070b14 !important;
-  }
-
-  body {
-    padding: 0 !important;
-    margin: 0 !important;
-    display: block !important;
+    background: #080d1a !important;
   }
 
   .mobile-web-wrapper {
-    width: 100vw !important;
+    width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
     background: #080d1a !important;
+    overflow: visible !important;
   }
 
   .mobile-web-shell {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
-    max-height: none !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    background: #080d1a !important;
-    overflow-x: hidden !important;
-    overflow-y: visible !important;
+    background: transparent !important;
+    overflow: visible !important;
   }
 
   .app-viewport-container {
     width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
-    overflow-x: hidden !important;
-    overflow-y: visible !important;
+    overflow: visible !important;
   }
 
   .app-page-screen {
     width: 100% !important;
     min-height: 100dvh !important;
     height: auto !important;
-    padding: max(16px, env(safe-area-inset-top)) 16px max(36px, env(safe-area-inset-bottom)) !important;
+    padding: max(16px, env(safe-area-inset-top)) 16px calc(64px + env(safe-area-inset-bottom, 24px)) !important;
     box-sizing: border-box !important;
-    overflow-y: visible !important;
+    overflow: visible !important;
   }
 
   .app-page-content {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .auth-card {
     width: 100% !important;
     border-radius: 24px !important;
-    padding: 24px 18px !important;
-    margin-bottom: 20px !important;
+    padding: 22px 18px !important;
+    margin-bottom: 24px !important;
     box-sizing: border-box !important;
   }
 
   .brand-header {
-    margin-bottom: 18px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .brand-icon-wrapper {
+    width: 52px !important;
+    height: 52px !important;
+    margin-bottom: 10px !important;
   }
 
   .brand-title {
@@ -1969,33 +1885,12 @@ button:active,
   }
 
   .brand-subtitle {
-    font-size: 12.5px !important;
+    font-size: 12px !important;
+    max-width: 290px !important;
   }
 
-  .modal-overlay {
-    position: fixed !important;
-    inset: 0 !important;
-    background: rgba(0, 0, 0, 0.78) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    display: flex !important;
-    align-items: flex-end !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    z-index: 9999 !important;
-  }
-
-  .modal-content {
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 90dvh !important;
-    border-radius: 28px 28px 0 0 !important;
-    border-bottom: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 16px)) !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    animation: slideUpBottomSheet 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  .security-note {
+    margin-top: 12px !important;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 16px)) !important;
   }
 }
