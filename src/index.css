@@ -197,10 +197,10 @@ html, body {
 }
 
 .gov-main-title {
-  font-size: 13.5px;
+  font-size: 14.5px;
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
   font-family: var(--font-heading);
   white-space: nowrap;
   overflow: hidden;

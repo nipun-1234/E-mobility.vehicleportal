@@ -321,7 +321,6 @@ export default function DashboardView({ user, onLogout }) {
               <ShieldCheck size={22} />
             </div>
             <div className="gov-text-col">
-              <span className="gov-super-title">Democratic Socialist Republic of Sri Lanka</span>
               <span className="gov-main-title">
                 {activeBottomNav === 'home' && 'e-mobility-vehicle-portal'}
                 {activeBottomNav === 'garage' && 'Digital Garage & Fleet'}
