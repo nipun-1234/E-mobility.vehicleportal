@@ -617,13 +617,21 @@ export default function RegisterView({ onBackToLogin, onLoginSuccess }) {
                     key={idx}
                     id={`reg-otp-${idx}`}
                     type="text"
+                    inputMode="numeric"
                     maxLength={1}
                     value={digit}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Backspace' && !otp[idx] && idx > 0) {
+                        const prev = document.getElementById(`reg-otp-${idx - 1}`);
+                        if (prev) prev.focus();
+                      }
+                    }}
                     onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9]/g, '');
                       const newOtp = [...otp];
-                      newOtp[idx] = e.target.value.slice(-1);
+                      newOtp[idx] = val.slice(-1);
                       setOtp(newOtp);
-                      if (e.target.value && idx < 5) {
+                      if (val && idx < 5) {
                         const next = document.getElementById(`reg-otp-${idx + 1}`);
                         if (next) next.focus();
                       }
