@@ -19,17 +19,27 @@ async function request(endpoint, options = {}) {
     ...(options.headers || {})
   };
 
-  const response = await fetch(url, {
-    ...options,
-    headers
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 2500);
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || `Request failed with status ${response.status}`);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Request failed with status ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (err) {
+    clearTimeout(timeoutId);
+    throw err;
   }
-
-  return response.json();
 }
 
 // Fallback in-memory datasets if backend is unreachable
@@ -202,6 +212,7 @@ export const authService = {
             registeredDate: '2025-01-15'
           }
         };
+        localStorage.setItem('accessToken', mockUser.token);
         localStorage.setItem('user', JSON.stringify(mockUser.user));
         return mockUser;
       }
@@ -236,7 +247,7 @@ export const authService = {
       return data;
     } catch (e) {
       console.warn('Backend OTP verify fallback:', e.message);
-      if (otp === '123456' || otp.length === 6) {
+      if (otp === '123456' || (otp && otp.length === 6)) {
         const mockUser = {
           token: 'mock-otp-jwt-token',
           user: {
@@ -246,6 +257,7 @@ export const authService = {
             email: 'saman.silva@example.lk'
           }
         };
+        localStorage.setItem('accessToken', mockUser.token);
         localStorage.setItem('user', JSON.stringify(mockUser.user));
         return mockUser;
       }
@@ -277,6 +289,7 @@ export const authService = {
           email: 'nimal.w@gov.lk'
         }
       };
+      localStorage.setItem('accessToken', mockUser.token);
       localStorage.setItem('user', JSON.stringify(mockUser.user));
       return mockUser;
     }
@@ -318,7 +331,7 @@ export const authService = {
 
 export const vehicleService = {
   /**
-   * Query the National Vehicle Registry (7,000 records) through the shared backend
+   * Query the National Vehicle Registry through the shared backend or local registry dataset
    */
   async lookupPlate(plate) {
     if (!plate || plate.trim().length < 3) {
@@ -327,11 +340,35 @@ export const vehicleService = {
     try {
       const clean = encodeURIComponent(plate.trim());
       const res = await request(`/vehicles/lookup/${clean}`);
-      return res;
+      if (res && res.matched) return res;
     } catch (e) {
-      console.warn('Backend lookupPlate error:', e.message);
-      return { matched: false, message: 'No vehicle found in the registry.' };
+      console.warn('Backend lookupPlate error, checking local registry:', e.message);
     }
+
+    const cleanUpper = plate.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const allVehicles = [
+      ...MOCK_VEHICLES,
+      { plate: 'WP-CAB-4521', make: 'Tesla', model: 'Model 3 Standard', year: 2023, color: 'Solid Black', type: 'Electric Sedan', vin: '5YJ3E1EB8NF109281' },
+      { plate: 'NW-CAC-1860', make: 'Hyundai', model: 'Ioniq 5 AWD', year: 2024, color: 'Gravity Gold', type: 'Electric SUV', vin: 'KM8KRDAF8NU049281' },
+      { plate: 'SB-KA-6734', make: 'MG', model: 'ZS EV Trophy', year: 2023, color: 'Dynamic Red', type: 'Electric Crossover', vin: 'LSJA24U95P001928' }
+    ];
+    const localMatch = allVehicles.find(v => v.plate.replace(/[^A-Z0-9]/g, '').includes(cleanUpper) || cleanUpper.includes(v.plate.replace(/[^A-Z0-9]/g, '')));
+    if (localMatch) {
+      return {
+        matched: true,
+        vehicle: {
+          plate: localMatch.plate,
+          make: localMatch.make,
+          model: localMatch.model,
+          year: localMatch.year,
+          color: localMatch.color,
+          vin: localMatch.vin || ('1HGCR2F83HA' + Math.floor(100000 + Math.random() * 900000)),
+          fuelType: localMatch.type,
+          bodyType: localMatch.type
+        }
+      };
+    }
+    return { matched: false, message: 'No vehicle found in the registry.' };
   },
 
   async getVehicles(ownerNic) {
@@ -339,13 +376,11 @@ export const vehicleService = {
       const url = ownerNic ? `/vehicles?ownerNic=${encodeURIComponent(ownerNic)}` : '/vehicles';
       const data = await request(url);
       if (Array.isArray(data) && data.length > 0) return data;
-      // If user has no custom vehicles in backend, return empty or fallback
-      if (Array.isArray(data)) return data;
-      return MOCK_VEHICLES;
     } catch (e) {
-      console.warn('Backend vehicles request error, using fallback:', e.message);
-      return MOCK_VEHICLES;
+      console.warn('Backend vehicles request error, using local fallback:', e.message);
     }
+    const localSaved = JSON.parse(localStorage.getItem('portal_vehicles') || '[]');
+    return [...localSaved, ...MOCK_VEHICLES];
   },
 
   async addVehicle(vehicleData) {
@@ -355,11 +390,21 @@ export const vehicleService = {
         method: 'POST',
         body: JSON.stringify(vehicleData)
       });
-      console.log('✅ Vehicle successfully added to backend:', res);
       return res;
     } catch (e) {
-      console.warn('Backend addVehicle error:', e.message);
-      return vehicleData;
+      console.warn('Backend addVehicle error, saving to local state:', e.message);
+      const localSaved = JSON.parse(localStorage.getItem('portal_vehicles') || '[]');
+      const newVeh = {
+        id: `veh_${Date.now()}`,
+        batteryLevel: 92,
+        revenueLicenseStatus: 'Valid',
+        licenseExpiry: '2027-12-31',
+        qrCode: `EM-LK-${(vehicleData.plate || 'EV').replace(/[^A-Z0-9]/g, '')}-VERIFIED`,
+        ...vehicleData
+      };
+      localSaved.unshift(newVeh);
+      localStorage.setItem('portal_vehicles', JSON.stringify(localSaved));
+      return newVeh;
     }
   },
 
@@ -379,22 +424,20 @@ export const fineService = {
       const url = vehiclePlate ? `/fines?plate=${encodeURIComponent(vehiclePlate)}` : '/fines';
       const data = await request(url);
       if (Array.isArray(data) && data.length > 0) return data;
-      return MOCK_FINES;
     } catch (e) {
       console.warn('Backend fines request error, using fallback:', e.message);
-      return MOCK_FINES;
     }
+    return MOCK_FINES;
   },
 
   async getDisputes() {
     try {
       const data = await request('/disputes');
       if (Array.isArray(data)) return data;
-      return [];
     } catch (e) {
       console.warn('Backend disputes request error:', e.message);
-      return [];
     }
+    return JSON.parse(localStorage.getItem('portal_disputes') || '[]');
   },
 
   async payFine(fineId, paymentMethod = 'Online Gateway') {
@@ -423,6 +466,15 @@ export const fineService = {
       });
     } catch (e) {
       console.warn('Backend dispute fallback:', e.message);
+      const disputes = JSON.parse(localStorage.getItem('portal_disputes') || '[]');
+      disputes.unshift({
+        id: `DSP-${Date.now()}`,
+        fineId,
+        reason,
+        status: 'Under Review',
+        submittedAt: new Date().toISOString().split('T')[0]
+      });
+      localStorage.setItem('portal_disputes', JSON.stringify(disputes));
       return { success: true, message: 'Dispute submitted successfully (fallback mode).' };
     }
   }
@@ -433,10 +485,9 @@ export const stationService = {
     try {
       const data = await request('/stations');
       if (Array.isArray(data) && data.length > 0) return data;
-      return MOCK_STATIONS;
     } catch (e) {
       console.warn('Backend stations request error, using fallback:', e.message);
-      return MOCK_STATIONS;
     }
+    return MOCK_STATIONS;
   }
 };

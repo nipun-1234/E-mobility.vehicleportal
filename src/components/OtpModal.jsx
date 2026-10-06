@@ -37,7 +37,7 @@ export default function OtpModal({ onClose, onLoginSuccess }) {
     setError('');
     setLoading(true);
     try {
-      const data = await authService.verifyOtp(code);
+      const data = await authService.verifyOtp(code, mobile);
       onLoginSuccess(data.user);
     } catch (err) {
       setError(err.message);
