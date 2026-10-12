@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="./assets/banner.svg" alt="E-Mobility Vehicle Portal 3D banner" width="100%"/>
-
 <br/>
 
 ![React](https://img.shields.io/badge/Mobile--First-PWA-00f5a0?style=for-the-badge&logo=react&logoColor=white)
